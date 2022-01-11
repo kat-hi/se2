@@ -8,6 +8,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
 
+
 @SpringBootApplication
 @ComponentScan(
         basePackages = {"de.freerider.restapi", "de.freerider.repository"}
