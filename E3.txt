@@ -1,0 +1,44 @@
+1. Was ist eine Transaktion?
+Im Fall einer Datenbanktransaktion sind mehrere logisch zusammengehörige Schritte oder Ausführungen innerhalb der Datenbank gemeint,
+die u.a. den Zustand einer Datenbank verändern kann, aber nicht muss.
+
+2. Was bedeutet die ACID-Eigenschaft für relationale Datenbanken?
+- ACID ist ein Qualitätsmerkmal und Gütekriterium
+- ACID: Atomarität, Konsistenz, Isolation, Dauerhaftigkeit
+- Atomare, eventuell auch gleichzeitige aber isolierte Ausführung von Operationen in der Datenbank,
+die immer zu konsistenten Daten führt und deren erfolgreicher Transaktionszustand persistent ist
+
+3. Was ist ein DB-Schema?
+Beschreibt die Struktur einer Datenbank formal. Relationale Datenbanken bestehen zb aus Tabellen, Feldern, Relationen, Views, Index, Packeten.. etc
+Es stellt also die Objekte die zu einer Datenbank gehören dar.
+
+Eine andere Art Datenbankschema dient dazu, zu beschreiben, welche Daten gespeichert werden können und ob und
+welche Beziehungen es unter verschiedenen Datenobjekten gibt.
+
+4. Nennen Sie je 3 Namen von relationalen und nicht‐relationalen DB Systemen. Nennen Sie die
+   primären Datenformate für die genannten nicht‐relationalen DB Systeme
+
+Relational: MySQL, PostgreSQL, SQLite
+nicht-relational: MongoDB, CouchDB, ElasticSearch (dokumentorientierte Datenbanken)
+
+- Json, Yaml oder XML
+
+5. Geben Sie das SQL‐Statement für eine DB‐Abfrage an, die aus einer Tabelle CUSTOMER einen
+   Kunden mit einem ID: 4
+
+SELECT * FROM CUSTOMER WHERE CUSTOMER.ID = 4;
+
+6. Geben Sie das SQL‐Statement an, um eine Tabelle CUSTOMER zu definieren mit Attributen
+CREATE TABLE CUSTOMER (
+    ID long NOT NULL;
+    NAME varchar(255),
+    CONTACT varchar(255),
+    LAST_LOGIN varchar(255),
+    PRIMARY KEY (ID)
+);
+
+7. Geben Sie ein SQL‐Statement an, um einen neuen Kunden in die DB zu speichern
+INSERT INTO CUSTOMER (ID, NAME, CONTACT, LAST_LOGIN) VALUES (1, "NEUKUNDE", "KONTAKTDATEN", "11.01.22,19.49"
+
+8. Geben Sie das SQL‐Statement an, das den Kunden mit ID: 4 in der DB löscht
+DELETE * FROM CUSTOMER WHERE CUSTOMER.ID = 4;
