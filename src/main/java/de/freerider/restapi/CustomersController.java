@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.freerider.datamodel.Customer;
-import de.freerider.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ public class CustomersController implements CustomersAPI {
     @Autowired
     private ApplicationContext context;
     @Autowired
-    CustomerRepository repo = new CustomerRepository();
+//    CustomerRepository repo = new CustomerRepository();
     private final ObjectMapper objectMapper;
     private final HttpServletRequest request;
 
@@ -121,7 +120,7 @@ public class CustomersController implements CustomersAPI {
             for (String key : kvpairs.keySet()) {
                 Optional<Customer> c = accept(kvpairs);
                 if(c.isPresent()) {
-                    repo.save(c.get());
+//                    repo.save(c.get());
                     return new ResponseEntity<>(null, HttpStatus.OK);
                 }
             }
@@ -137,30 +136,31 @@ public class CustomersController implements CustomersAPI {
     @Override
     public ResponseEntity<?> deleteCustomer(long id) {
         System.err.println("DELETE /customers/" + id);
-        if (repo.existsById(id)) {
-            repo.deleteById(id);
-            System.out.println("customer " + id + " deleted.");
-            return new ResponseEntity<>(null, HttpStatus.ACCEPTED); // status 202
-        } else {
-            System.err.println("customer " + id + " not found.");
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); // status 404
-        }
+//        if (repo.existsById(id)) {
+//            repo.deleteById(id);
+//            System.out.println("customer " + id + " deleted.");
+//            return new ResponseEntity<>(null, HttpStatus.ACCEPTED); // status 202
+//        } else {
+//            System.err.println("customer " + id + " not found.");
+//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); // status 404
+//        }
+        return new ResponseEntity<>("200", HttpStatus.ACCEPTED);
     }
 
 
     private ArrayNode customerAsJSON(long id) {
         ArrayNode arrayNode = objectMapper.createArrayNode();
-        Optional<Customer> c = repo.findById(id);
-        c.ifPresent(customer -> toJson(customer, arrayNode));
+//        Optional<Customer> c = repo.findById(id);
+//        c.ifPresent(customer -> toJson(customer, arrayNode));
         return arrayNode;
     }
 
     private ArrayNode peopleAsJSON() {
         ArrayNode arrayNode = objectMapper.createArrayNode();
-        Iterable<Customer> cList = repo.findAll();
-        cList.forEach(c -> {
-            toJson(c, arrayNode);
-        });
+//        Iterable<Customer> cList = repo.findAll();
+//        cList.forEach(c -> {
+//            toJson(c, arrayNode);
+//        });
         return arrayNode;
     }
 
