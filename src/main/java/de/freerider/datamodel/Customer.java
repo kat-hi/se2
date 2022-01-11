@@ -1,9 +1,6 @@
 package de.freerider.datamodel;
 
-import javax.persistence.Column;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.*;
 
 
@@ -14,7 +11,8 @@ import java.util.*;
  * @version "0.1.0"
  * @author sgra64
  */
-
+@Entity
+@Table(name = "CUSTOMER")
 public class Customer {
 
     /**

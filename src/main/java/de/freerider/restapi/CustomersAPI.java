@@ -151,7 +151,7 @@ public interface CustomersAPI {
             value = ""	// relative to interface @RequestMapping
     )
     //
-    public ResponseEntity<List<?>> postCustomers( @RequestBody Map<String, Object>[] jsonMap );
+    ResponseEntity<List<?>> postCustomers( @RequestBody Map<String, Object>[] jsonMap  );
 
 
     /**
