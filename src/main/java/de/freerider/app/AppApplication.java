@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
+import springfox.documentation.swagger2.mappers.ModelMapper;
 
 @SpringBootApplication
 @ComponentScan(
@@ -16,6 +18,11 @@ import org.springframework.context.event.EventListener;
 public class AppApplication {
     @Autowired  // Spring auto‐wires reference to CustomerRepository instance
     private CustomerRepository customerRepository;
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
     public static void main(String[] args) {
         System.out.println("Hello, freerider.de");

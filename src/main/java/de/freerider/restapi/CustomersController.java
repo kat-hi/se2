@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@RestController
+//@RestController
 public class CustomersController implements CustomersAPI {
     @Autowired
     private ApplicationContext context;

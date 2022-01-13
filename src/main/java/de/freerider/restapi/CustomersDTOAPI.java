@@ -1,60 +1,21 @@
 package de.freerider.restapi;
 
-import java.util.List;
-import java.util.Map;
-
+import de.freerider.restapi.dto.CustomerDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import java.util.List;
 
 
-/**
- * Spring Controller interface for /customers REST endpoint to access the
- * collection of customer resources maintained in a CustomerRepository.
- * <p>
- * Operations provided by the endpoint:
- * <p>
- * - GET /customers			- return JSON data for all customer in the repository,
- * status: 200 OK.
- * <p>
- * - GET /customers/{id}	- return JSON data for customer with id,
- * status: 200 OK, 404 not found.
- * <p>
- * - POST /customers		- create new objects in the repository from JSON objects
- * passed with the request,
- * status: 201 created, 409 conflict, 400 bad request.
- * <p>
- * - PUT /customers			- updated existing objects in the repository from JSON
- * objects passed with the request,
- * status: 202 accepted, 404 not found, 400 bad request.
- * <p>
- * - DELETE /customers/{id}	- delete customer with id,
- * status: 202 accepted, 404 not found, 400 bad request.
- *
- * @author sgra64
- */
-
-/*
- * Refer to endpoint URL from swagger.properties, replaces: "/api/v1/customers"
- */
 @RequestMapping("${app.api.endpoints.customers}")
-//
-public interface CustomersAPI {
-
-
-    /**
-     * GET /customers
-     *
-     * @return JSON Array with customers (compact).
-     */
+public interface CustomersDTOAPI {
 
     /*
      * Swagger API doc annotations:
@@ -80,8 +41,7 @@ public interface CustomersAPI {
             value = "",    // relative to interface @RequestMapping
             produces = {"application/json"}
     )
-    //
-    ResponseEntity<List<?>> getCustomers();
+    ResponseEntity<List<CustomerDTO>> getCustomers();
 
 
     /**
@@ -108,11 +68,7 @@ public interface CustomersAPI {
             produces = {"application/json"}
     )
     //
-    ResponseEntity<?> getCustomer(
-            @PathVariable("id")
-            @ApiParam(value = "Customer id", required = true)
-                    long id
-    );
+    ResponseEntity<CustomerDTO> getCustomer( @PathVariable("id") long id );
 
 
     /**
@@ -150,8 +106,7 @@ public interface CustomersAPI {
             value = ""    // relative to interface @RequestMapping
     )
     //
-    public ResponseEntity<List<?>> postCustomers(@RequestBody Map<String, Object>[] jsonMap);
-
+    ResponseEntity<List<CustomerDTO>> postCustomers( @RequestBody List<CustomerDTO> dtos );
 
     /**
      * PUT /customers
@@ -188,20 +143,7 @@ public interface CustomersAPI {
             value = ""    // relative to interface @RequestMapping
     )
     //
-    public ResponseEntity<List<?>> putCustomers(@RequestBody Map<String, Object>[] jsonMap);
-
-
-    /**
-     * DELETE /customers/{id}
-     * <p>
-     * Delete existing customer by its id. A missing id or an id that was not found
-     * returns error 404 (not found).
-     * <p>
-     * Status 202 (accepted) is returned with successful completion of the operation.
-     *
-     * @param id id of object to delete.
-     * @return status code: 202 (accepted), 404 (not found).
-     */
+    ResponseEntity<List<CustomerDTO>> putCustomers( @RequestBody List<CustomerDTO> dtos );
 
     /*
      * Swagger API doc annotations:
@@ -220,13 +162,5 @@ public interface CustomersAPI {
             value = "{id}"    // relative to interface @RequestMapping
     )
     //
-    public ResponseEntity<?> deleteCustomer(@PathVariable("id") long id);
-
-
-    /*
-     * Alternative using DTO serialization.
-     */
-//	@RequestMapping( method = RequestMethod.POST, value = "" )
-//	public Response Entity<List<?>> postCustomers( @RequestBody CustomerJsonDTO[] dtos );
-
+    ResponseEntity<?> deleteCustomer( @PathVariable("id") long id );
 }
