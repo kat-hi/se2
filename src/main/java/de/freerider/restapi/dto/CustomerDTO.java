@@ -13,23 +13,22 @@ import de.freerider.datamodel.Customer;
 /**
  * Class for Data-Transfer Objects (DTO) for REST-endpoint: /customers
  * through which DTO are exchanged as JSON data.
- *
+ * <p>
  * Class also represents the Resource Model for the /customers endpoint.
- *
+ * <p>
  * Renders JSON for a Customer object like:
  * {@code
  * {
- *   "serialnumber": 1,
- *   "uuid": 12734634,
- *   "time-sent": 1639502608151,
- *   "customer-id": "1",
- *   "customer-name": "Meyer, Eric OK",
- *   "customer-contacts": "eric98@yahoo.com; (030) 7000-640000"
- *  }
+ * "serialnumber": 1,
+ * "uuid": 12734634,
+ * "time-sent": 1639502608151,
+ * "customer-id": "1",
+ * "customer-name": "Meyer, Eric OK",
+ * "customer-contacts": "eric98@yahoo.com; (030) 7000-640000"
+ * }
  * }
  *
  * @author sgra64
- *
  */
 
 public class CustomerDTO {
@@ -83,14 +82,14 @@ public class CustomerDTO {
      * @param copy internal object for which DTO is created.
      */
 
-    public CustomerDTO( Customer copy ) {
-        this.id = Long.toString( copy.getId() );
+    public CustomerDTO(Customer copy) {
+        this.id = Long.toString(copy.getId());
         this.name = copy.getName();
         StringBuffer sb = new StringBuffer();
-        copy.getContacts().forEach( contact -> sb.append( sb.length()==0? "" : "; " ).append( contact ) );
+        copy.getContacts().forEach(contact -> sb.append(sb.length() == 0 ? "" : "; ").append(contact));
         this.contacts = sb.toString();
         this.serial = serialno++;
-        this.uuid = ThreadLocalRandom.current().nextInt( 10000000, 100000000 );
+        this.uuid = ThreadLocalRandom.current().nextInt(10000000, 100000000);
         this.timeSent = new Date();
     }
 
@@ -109,8 +108,40 @@ public class CustomerDTO {
      * @return Optional with created internal object (or empty).
      */
     public Optional<Customer> create() {
-        return create_();
-//		return createVa lidated();
+        return createValidated();
+    }
+
+    private Optional<Customer> createValidated() {
+        boolean validated = true;
+        String reason = null;
+        try {
+            if (Long.parseLong(this.id) < 0) {
+                reason = "Id is smaller than 0.";
+                validated = false;
+            }
+        } catch (Exception e) {
+            reason = "Id could not be parsed.";
+            validated = false;
+        }
+        if(this.serial < 0 ) {
+            reason = "Serialnr is smaller than 0";
+            validated = false;
+        }
+        if(this.uuid < 0) {
+            reason = "UUID is smaller than 0";
+            validated = false;
+        }
+        if(this.name == null) {
+            reason = "Name is null.";
+            validated = false;
+        }
+        if (validated) {
+            return create_();
+        } else {
+            System.err.println("Error: invalid JSON object rejected. Reason: " + reason);
+
+            return Optional.empty();
+        }
     }
 
     private Optional<Customer> create_() {
@@ -119,30 +150,28 @@ public class CustomerDTO {
         Customer customer = null;
         try {
             //
-            long idL = Long.parseLong( this.id );
+            long idL = Long.parseLong(this.id);
             customer = new Customer()
-                    .setId( idL )
-                    .setName( this.name )
+                    .setId(idL)
+                    .setName(this.name)
             ;
-            for( String contact : contacts.toString().split( ";" ) ) {
+            for (String contact : contacts.toString().split(";")) {
                 String contactr = contact.trim();
-                if( contactr.length() > 0 ) {
-                    customer.addContact( contactr );
+                if (contactr.length() > 0) {
+                    customer.addContact(contactr);
                 }
             }
-            return Optional.ofNullable( customer );
+            return Optional.ofNullable(customer);
             //
-        } catch( Exception e ) {
+        } catch (Exception e) {
             customer = null;
         }
-        return Optional.ofNullable( customer );
+        return Optional.ofNullable(customer);
     }
 
 
     /**
      * Custom setter to create Date object from long value.
-     *
-     * @param timestamp found in JSON as long value.
      *
      */
     @JsonProperty("time-sent")
@@ -155,11 +184,10 @@ public class CustomerDTO {
      * Custom setter to create Date object from long value.
      *
      * @param timestamp found in JSON as long value.
-     *
      */
     @JsonProperty("time-sent")
-    public void setTimestamp( long timestamp ) {
-        this.timeSent = new Date( timestamp );
+    public void setTimestamp(long timestamp) {
+        this.timeSent = new Date(timestamp);
     }
 
 
@@ -168,8 +196,8 @@ public class CustomerDTO {
      */
 
     public void print() {
-        String timeStamp = new SimpleDateFormat( "yyyy/MM/dd, HH:mm:ss.SSS" ).format( timeSent );
-        System.out.println( "Customer-DTO: " +
+        String timeStamp = new SimpleDateFormat("yyyy/MM/dd, HH:mm:ss.SSS").format(timeSent);
+        System.out.println("Customer-DTO: " +
                 "serialnumber: " + serial + ", " +
                 "uuid: " + uuid + ", " +
                 "customer-id: \"" + id + "\", " +
@@ -179,22 +207,22 @@ public class CustomerDTO {
         );
     }
 
-    public static void print( Optional<Customer> opt ) {
-        if( opt.isPresent() ) {
+    public static void print(Optional<Customer> opt) {
+        if (opt.isPresent()) {
             Customer customer = opt.get();
             StringBuffer sb = new StringBuffer();
-            customer.getContacts().forEach( contact ->
-                    sb.append( ", contact: \"" ).append( contact ).append( "\"" )
+            customer.getContacts().forEach(contact ->
+                    sb.append(", contact: \"").append(contact).append("\"")
             );
             //
-            System.out.println( "Customer-OBJ: " +
+            System.out.println("Customer-OBJ: " +
                     "id: \"" + customer.getId() + "\", " +
                     "lastName: \"" + customer.getLastName() + "\", " +
                     "firstName: \"" + customer.getFirstName() + "\", " +
                     "contactsCount: " + customer.contactsCount() + sb.toString()
             );
         } else {
-            System.out.println( "Customer-OBJ: empty." );
+            System.out.println("Customer-OBJ: empty.");
         }
     }
 

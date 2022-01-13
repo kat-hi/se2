@@ -88,6 +88,8 @@ public class CustomersDTOController implements CustomersDTOAPI {
             if (c.isPresent()) {
                 Customer customer = c.get();
                 cList.add(customer);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
         }
         repo.saveAll(cList);
@@ -116,6 +118,21 @@ public class CustomersDTOController implements CustomersDTOAPI {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+//    /**
+//     * PUT /customers
+//     */
+//    @Override
+//    public ResponseEntity<List<CustomerDTO>> putCustomers(@RequestBody List<CustomerDTO> dtos) {
+//        System.err.println(request.getMethod() + " " + request.getRequestURI());
+//        //
+//        dtos.stream().forEach(dto -> {
+//            dto.print();
+//            Optional<Customer> customerOpt = dto.create();
+//            CustomerDTO.print( customerOpt );
+//        });
+//        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+//    }
+
     @Override
     public ResponseEntity<?> deleteCustomer(long id) {
         System.err.println("DELETE /customers/" + id);
@@ -127,41 +144,6 @@ public class CustomersDTOController implements CustomersDTOAPI {
             System.err.println("customer " + id + " not found.");
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); // status 404
         }
-    }
-
-
-    private Optional<Customer> accept(Map<String, Object> kvpairs) {
-        AtomicBoolean name = new AtomicBoolean(false);
-        AtomicBoolean lastname = new AtomicBoolean(false);
-        AtomicBoolean id = new AtomicBoolean(false);
-        Customer acc = null;
-        Set<String> keys = kvpairs.keySet();
-        for (String key : kvpairs.keySet()) {
-            if (key.equals("id")) {
-                String idstring = kvpairs.get("id").toString();
-                if (Long.parseLong(idstring) >= 0) {
-                    id.set(true);
-                }
-            } else if (key.equals("first")) {
-                name.set(true);
-            } else if (key.equals("name")) {
-                lastname.set(true);
-            }
-        }
-        if (name.get() && lastname.get() && id.get()) {
-            acc = new Customer();
-            acc.setId(Long.parseLong(kvpairs.get("id").toString()));
-            acc.setName(kvpairs.get("first").toString(), kvpairs.get("name").toString());
-            if (kvpairs.containsKey("contacts")) {
-                String contacts = kvpairs.get("contacts").toString();
-                String[] contactlist = contacts.split(";");
-                for (int i = 0; i < contactlist.length; i++) {
-                    acc.addContact(contactlist[i]);
-                }
-            }
-            return Optional.of(acc);
-        }
-        return Optional.empty();
     }
 
 }
