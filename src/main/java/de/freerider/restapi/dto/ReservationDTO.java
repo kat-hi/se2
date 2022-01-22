@@ -62,6 +62,9 @@ public class ReservationDTO {
     @JsonProperty("reservation_status")
     private String reservation_status;
 
+    public ReservationDTO() {
+    }
+
     public ReservationDTO(Reservation copy) {
         this.id = copy.getId();
         this.reservation_begin = copy.getReservation_begin();
@@ -72,6 +75,7 @@ public class ReservationDTO {
         this.reservation_pickup = copy.getReservation_pickup();
         this.reservation_status = copy.getStatus();
     }
+
     /**
      * Public factory method to create internal object from this DTO.
      *
@@ -81,28 +85,28 @@ public class ReservationDTO {
 //        createValidated()
         return create_();
     }
+
     private Optional<Reservation> create_() {
-        //
-        // TODO: check validity of attributes before creating Customer object
         Reservation reservation = null;
-//        try {
-//            //
-//            long idL = Long.parseLong(this.id);
-//            customer = new Customer()
-//                    .setId(idL)
-//                    .setName(this.name)
-//            ;
-//            for (String contact : contacts.toString().split(";")) {
-//                String contactr = contact.trim();
-//                if (contactr.length() > 0) {
-//                    customer.addContact(contactr);
-//                }
-//            }
-//            return Optional.ofNullable(customer);
-//            //
-//        } catch (Exception e) {
-//            customer = null;
-//        }
+        try {
+            int random_id = (int) (Math.random() * (10000 - 1));
+            Optional<Customer> c = this.owner.create();
+            Optional<Vehicle> v = this.vechicle.create();
+
+            if (c.isEmpty()) {
+                System.err.println("Customer is empty");
+                return Optional.empty();
+            }
+            if (v.isEmpty()) {
+                System.err.println("Vehicle is empty");
+                return Optional.empty();
+            }
+
+            reservation = new Reservation(random_id, c.get(), v.get());
+            //
+        } catch (Exception e) {
+            reservation = null;
+        }
         return Optional.ofNullable(reservation);
     }
 

@@ -1,9 +1,11 @@
 package de.freerider.restapi;
 
+import de.freerider.restapi.dto.VehiclesDTO;
 import de.freerider.restapi.dto.ReservationDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,7 +36,41 @@ public interface ReservationsDTOApi {
             value = "{id}",    // relative to interface @RequestMapping
             produces = {"application/json"}
     )
+    ResponseEntity<List<ReservationDTO>> getReservations(@PathVariable("id") long id);
 
-    ResponseEntity<ReservationDTO> getReservation(@PathVariable("id") long id);
+    /**
+     * POST /reservations
+     * <p>
+     * Add new customers from JSON data passed as array of JSON objects in the request body.
+     * Multiple customers can be posted with multiple JSON objects from the same request.
+     * Id's are assigned, if id-attributes are missing or are empty in JSON data.
+     * <p>
+     * JSON data containing id of objects that are already present are rejected. Rejected
+     * objects are returned in the response with error 409 (conflict).
+     * <p>
+     * Status 201 (created) is returned with empty array of conflicts when all objects were
+     * accepted. Partial acceptance of objects from the request is possible, but error 409 is
+     * returned with the array of rejected objects.
+     *
+     * @param dtos array of maps with raw JSON {@code <key,obj>}-data.
+     * @return JSON array with the rejected JSON objects, empty array [] if all objects were accepted.
+     */
 
+    /*
+     * Swagger API doc annotations:
+     */
+    @Operation(
+            summary = "Add new reservations to repository.",
+            description = "Add new reservations to repository.",
+            tags = {"reservations-controller"}
+    )
+
+    /*
+     * Spring REST Controller annotation:
+     */
+    @RequestMapping(
+            method = RequestMethod.POST,
+            value = ""    // relative to interface @RequestMapping
+    )
+    ResponseEntity<List<ReservationDTO>> postReservations(@RequestBody List<ReservationDTO> dtos);
 }

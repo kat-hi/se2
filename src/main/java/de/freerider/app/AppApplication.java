@@ -52,6 +52,9 @@ public class AppApplication {
         Customer tim = customerRepository.save(new Customer()
                 .setId(3).setName("Tim", "Schulz‐Mueller").addContact("tim2346@gmx.de")
         );
+        Customer gustav = customerRepository.save(new Customer()
+                .setId(4).setName("Gustav", "Meierhuber").addContact("gustav@gmx.de")
+        );
 
 
         Vehicle v1 = new Vehicle(476562, "Tesla", "Model 3", "red")
@@ -88,7 +91,7 @@ public class AppApplication {
                 .dropoff(LocCode.BTH11, "Jan 02, 2023 20:00 UTC+0100");
 
         reservationRepository.saveAll( Arrays.asList( r1, r2, r3, r4, r5));
-        long count = customerRepository.count();   // 3 customers added to repository
+        long count = customerRepository.count();
         System.out.println("repository<Customer> with: " + count + " entries");
     }
 }

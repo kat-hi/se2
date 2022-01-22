@@ -113,6 +113,8 @@ public class CustomerDTO {
     }
 
     private Optional<Customer> createValidated() {
+
+
         boolean validated = true;
         String reason = null;
         try {
@@ -140,7 +142,6 @@ public class CustomerDTO {
             return create_();
         } else {
             System.err.println("Error: invalid JSON object rejected. Reason: " + reason);
-
             return Optional.empty();
         }
     }
@@ -154,8 +155,8 @@ public class CustomerDTO {
             long idL = Long.parseLong(this.id);
             customer = new Customer()
                     .setId(idL)
-                    .setName(this.name)
-            ;
+                    .setName(this.name);
+
             for (String contact : contacts.toString().split(";")) {
                 String contactr = contact.trim();
                 if (contactr.length() > 0) {
@@ -165,6 +166,7 @@ public class CustomerDTO {
             return Optional.ofNullable(customer);
             //
         } catch (Exception e) {
+
             customer = null;
         }
         return Optional.ofNullable(customer);

@@ -1,8 +1,12 @@
 package de.freerider.restapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.freerider.datamodel.Customer;
 import de.freerider.datamodel.Power;
+import de.freerider.datamodel.Reservation;
 import de.freerider.datamodel.Vehicle;
+
+import java.util.Optional;
 
 public class VehiclesDTO {
 
@@ -31,7 +35,20 @@ public class VehiclesDTO {
         this.color = copy.getColor();
         this.passengers = copy.getPassengers();
         this.power = copy.getPower();
-
     }
+
+    public VehiclesDTO() {
+    }
+
+    public Optional<Vehicle> create() {
+        Vehicle v = null;
+        try {
+            v = new Vehicle(this.id, this.make, this.model, this.color);
+        } catch (Exception e) {
+            return Optional.ofNullable(v);
+        }
+        return Optional.ofNullable(v);
+    }
+
 
 }
