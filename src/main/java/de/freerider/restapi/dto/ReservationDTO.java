@@ -1,6 +1,12 @@
 package de.freerider.restapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.freerider.datamodel.Customer;
+import de.freerider.datamodel.LocCode;
+import de.freerider.datamodel.Reservation;
+
+import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ReservationDTO {
     /**
@@ -39,7 +45,7 @@ public class ReservationDTO {
      * JsonProperty, location to pick up vehicle
      */
     @JsonProperty("reservation_pickup")
-    private String reservation_pickup;
+    private LocCode reservation_pickup;
 
     /**
      * JsonProperty, location drop off vehicle
@@ -54,4 +60,12 @@ public class ReservationDTO {
     @JsonProperty("reservation_status")
     private String reservation_status;
 
+    public ReservationDTO(Reservation copy) {
+        this.id = copy.getId();
+        this.reservation_begin = copy.getReservation_begin();
+        this.reservation_drop = copy.getReservation_drop();
+        this.reservation_end = copy.getReservation_end();
+        this.reservation_pickup = copy.getReservation_pickup();
+        this.reservation_status = copy.getStatus();
+    }
 }

@@ -50,6 +50,7 @@ public class Reservation {
         this.owner = owner;
         this.vehicle = v;
     }
+    public Reservation() {}
 
     public Customer getOwner() {
         return owner;

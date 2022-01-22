@@ -35,6 +35,6 @@ public interface ReservationsDTOApi {
             produces = {"application/json"}
     )
 
-    ResponseEntity<List<ReservationDTO>> getReservations(@PathVariable("id") long id);
+    ResponseEntity<ReservationDTO> getReservation(@PathVariable("id") long id);
 
 }

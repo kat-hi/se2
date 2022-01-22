@@ -39,6 +39,9 @@ public class Vehicle {
     /**
      * Default constructor
      */
+    public Vehicle() {
+    }
+
     public Vehicle(Integer id, String make, String model, String color) {
         this.id = id;
         this.make = make;

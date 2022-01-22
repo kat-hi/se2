@@ -13,6 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.util.Arrays;
+
 // tell Spring where to scan for @Repository's
 @EnableJpaRepositories(basePackages = {"de.freerider.repository"})
 // tell Spring where to scan for @Entity's
@@ -60,9 +62,9 @@ public class AppApplication {
         Vehicle v6 = new Vehicle(247245, "BMW", "320d", "red").setPower(Power.diesel);
         Vehicle v7 = new Vehicle(247245, "VW", "ID Buzz", "red").setPower(Power.electric).setPassengers(8);
         Vehicle v8 = new Vehicle(247245, "VW", "ID Buzz", "yellow").setPower(Power.electric).setPassengers(8);
-        //
-//			vehicleRepository.saveAll( Arrays.asList( v1, v2, v3, v4, v5, v6, v7, v8 ) );
-        //
+
+		vehicleRepository.saveAll( Arrays.asList( v1, v2, v3, v4, v5, v6, v7, v8 ) );
+
         Reservation r1 = new Reservation(239862, eric, v1)
                 .pickup(LocCode.BTH11, "Feb 18, 2022 10:00 UTC+0100")
                 .dropoff(LocCode.BER, "Feb 22, 2022 20:00 UTC+0100");
@@ -79,6 +81,7 @@ public class AppApplication {
                 .pickup(LocCode.BENT02, "Dec 20, 2022 10:00 UTC+0100")
                 .dropoff(LocCode.BTH11, "Jan 02, 2023 20:00 UTC+0100");
 
+        reservationRepository.saveAll( Arrays.asList( r1, r2, r3, r4, r5));
         long count = customerRepository.count();   // 3 customers added to repository
         System.out.println("repository<Customer> with: " + count + " entries");
     }
