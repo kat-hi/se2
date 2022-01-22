@@ -103,6 +103,15 @@ public class ReservationDTO {
             }
 
             reservation = new Reservation(random_id, c.get(), v.get());
+            if(this.reservation_begin != null) {
+                reservation.setReservation_begin(this.reservation_begin);
+            }
+            if(this.reservation_end != null) {
+                reservation.setReservation_end(this.reservation_end);
+            }
+            if(this.reservation_pickup != null) {
+                reservation.setReservation_pickup(this.reservation_pickup);
+            }
             //
         } catch (Exception e) {
             reservation = null;

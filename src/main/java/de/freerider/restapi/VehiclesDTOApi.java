@@ -22,7 +22,7 @@ public interface VehiclesDTOApi {
     @Operation(
             summary = "Return all vehicles from repository.",        // appears as text in API short-list
             description = "Return all vehicles from repository.",    // appears as text inside API
-            tags = {"vehicles-controller"}    // appears in swagger-ui URL: http://localhost:8080/swagger-ui/index.html#/vehicles-controller
+            tags = {"vehicles-dto-controller"}    // appears in swagger-ui URL: http://localhost:8080/swagger-ui/index.html#/vehicles-controller
     )
     @ApiResponses(value = {    // also auto-derived by Swagger
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json")),
@@ -53,7 +53,7 @@ public interface VehiclesDTOApi {
     @Operation(
             summary = "Return vehicle with {id} from repository.",
             description = "Return vehicle with {id} from repository.",
-            tags = {"vehicles-controller"}
+            tags = {"vehicles-dto-controller"}
     )
 
     /*

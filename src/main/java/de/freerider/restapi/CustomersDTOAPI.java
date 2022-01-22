@@ -23,7 +23,7 @@ public interface CustomersDTOAPI {
     @Operation(
             summary = "Return all customers from repository.",        // appears as text in API short-list
             description = "Return all customers from repository.",    // appears as text inside API
-            tags = {"customers-controller"}    // appears in swagger-ui URL: http://localhost:8080/swagger-ui/index.html#/customers-controller
+            tags = {"customers-dto-controller"}    // appears in swagger-ui URL: http://localhost:8080/swagger-ui/index.html#/customers-dto-controller
     )
     @ApiResponses(value = {    // also auto-derived by Swagger
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json")),
@@ -56,7 +56,7 @@ public interface CustomersDTOAPI {
     @Operation(
             summary = "Return customer with {id} from repository.",
             description = "Return customer with {id} from repository.",
-            tags = {"customers-controller"}
+            tags = {"customers-dto-controller"}
     )
 
     /*
@@ -95,7 +95,7 @@ public interface CustomersDTOAPI {
     @Operation(
             summary = "Add new customers to repository.",
             description = "Add new customers to repository.",
-            tags = {"customers-controller"}
+            tags = {"customers-dto-controller"}
     )
 
     /*
@@ -132,7 +132,7 @@ public interface CustomersDTOAPI {
     @Operation(
             summary = "Update existing customers in repository.",
             description = "Update existing customers in repository.",
-            tags = {"customers-controller"}
+            tags = {"customers-dto-controller"}
     )
 
     /*
@@ -151,7 +151,7 @@ public interface CustomersDTOAPI {
     @Operation(
             summary = "Delete customer by its id from repository.",
             description = "Delete customer by its id from repository.",
-            tags = {"customers-controller"}
+            tags = {"customers-dto-controller"}
     )
 
     /*
