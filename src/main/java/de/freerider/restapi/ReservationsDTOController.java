@@ -52,6 +52,7 @@ public class ReservationsDTOController implements ReservationsDTOApi {
             for(Reservation r: reservations) {
                 if(r.getOwner() == customer) {
                     ReservationDTO dto = new ReservationDTO(r);
+
                     response = new ResponseEntity<ReservationDTO>(dto, HttpStatus.OK);
                     return response;
                 }

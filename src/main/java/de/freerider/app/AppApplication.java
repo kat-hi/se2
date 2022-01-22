@@ -54,9 +54,15 @@ public class AppApplication {
         );
 
 
-        Vehicle v1 = new Vehicle(476562, "Tesla", "Model 3", "red").setPower(Power.electric);
-        Vehicle v2 = new Vehicle(934773, "Tesla", "Model 3", "white").setPower(Power.electric);
-        Vehicle v3 = new Vehicle(347456, "Tesla", "Model X", "silver").setPower(Power.electric);
+        Vehicle v1 = new Vehicle(476562, "Tesla", "Model 3", "red")
+                .setPower(Power.electric)
+                .setPassengers(4);
+        Vehicle v2 = new Vehicle(934773, "Tesla", "Model 3", "white")
+                .setPower(Power.electric)
+                .setPassengers(4);
+        Vehicle v3 = new Vehicle(347456, "Tesla", "Model X", "silver")
+                .setPower(Power.electric)
+                .setPassengers(4);
         Vehicle v4 = new Vehicle(126467, "BMW", "320i", "blue");
         Vehicle v5 = new Vehicle(356714, "BMW", "320i", "silver");
         Vehicle v6 = new Vehicle(247245, "BMW", "320d", "red").setPower(Power.diesel);

@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 
 /**
- * Class for entity type Reservation. Reservation is an state of a vehicle that belongs to a customer
+ * Class for entity type Reservation. Reservation is an state of a vehicle that beCustomers to a customer
  *
  * @author ksachs
  * @version "0.1.0"
@@ -22,7 +22,7 @@ public class Reservation {
     private int id = -1;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner")
     private Customer owner;
 
 
