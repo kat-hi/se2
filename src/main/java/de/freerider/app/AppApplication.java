@@ -2,23 +2,35 @@ package de.freerider.app;
 
 import de.freerider.datamodel.Customer;
 import de.freerider.repository.CustomerRepository;
+import de.freerider.repository.ReservationRepository;
+import de.freerider.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+// tell Spring where to scan for @Repository's
+@EnableJpaRepositories(basePackages = {"de.freerider.repository"})
+// tell Spring where to scan for @Entity's
+@EntityScan(basePackages = {"de.freerider.datamodel"})
+// tell Spring where to scan for @Components, @Controllers, @Services
 @SpringBootApplication
-@EnableJpaRepositories
 @ComponentScan(
         basePackages = {"de.freerider.restapi", "de.freerider.repository"}
 )
 public class AppApplication {
     @Autowired  // Spring auto‐wires reference to CustomerRepository instance
     public CustomerRepository customerRepository;
+
+    @Autowired
+    public ReservationRepository reservationRepository;
+
+    @Autowired
+    public VehicleRepository vehicleRepository;
 
     public static void main(String[] args) {
         System.out.println("Hello, freerider.de");

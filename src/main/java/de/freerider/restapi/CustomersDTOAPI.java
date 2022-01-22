@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 
-@RequestMapping("${app.api.endpoints.customers}")
+@RequestMapping("/api/v1/customers")
 public interface CustomersDTOAPI {
 
     /*
@@ -85,7 +85,7 @@ public interface CustomersDTOAPI {
      * accepted. Partial acceptance of objects from the request is possible, but error 409 is
      * returned with the array of rejected objects.
      *
-     * @param jsonMap array of maps with raw JSON {@code <key,obj>}-data.
+     * @param dtos array of maps with raw JSON {@code <key,obj>}-data.
      * @return JSON array with the rejected JSON objects, empty array [] if all objects were accepted.
      */
 
@@ -122,7 +122,7 @@ public interface CustomersDTOAPI {
      * attributes). Error 409 (conflict) is returned for errors other than an object (id) was not
      * found along with the array of rejected objects.
      *
-     * @param jsonMap array of maps with raw JSON {@code <key,obj>}-data.
+     * @param dtos array of maps with raw JSON {@code <key,obj>}-data.
      * @return JSON array with the rejected JSON objects, empty array [] if all updates were accepted.
      */
 
