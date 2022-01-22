@@ -16,10 +16,12 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @Configuration
 @EnableWebMvc
+@EnableSwagger2
 @PropertySource( "classpath:swagger.properties" )
 @ConfigurationProperties( prefix="app.api" )//, ignoreInvalidFields=true, ignoreUnknownFields=false )
 public class SwaggerConfig {
@@ -43,31 +45,41 @@ public class SwaggerConfig {
 	private Environment env;
 
 
+//	@Bean
+//	public Docket api() {
+//		//
+//		//app.api.endpoints.customers
+//		String customersEP_URL = regexEP_URL( "app.api.endpoints.customers", "/api/v1/customers" );
+//		String reservationsEP_URL = regexEP_URL( "app.api.endpoints.reservations", "/api/v1/reservations" );
+//
+//		String serverEP_URL = regexEP_URL( "app.api.endpoints.server", "/server" );
+//		//
+//		return new Docket(
+//				// show http://localhost:8080/v2/api-docs in UI for swagger: '2.0' api-doc
+////				DocumentationType.SWAGGER_2
+//				//
+//				// show http://localhost:8080/v3/api-docs in UI for open api: '3.0.3' api-doc
+//				DocumentationType.OAS_30
+//			)
+//			.select()
+////			.apis( RequestHandlerSelectors.basePackage( basePackage ) )
+//			.apis( RequestHandlerSelectors.basePackage( "de.freerider.restapi" ) )
+////			.paths( PathSelectors.any() )
+////			.paths( PathSelectors.regex( "/api/v1/customers.*" ) )
+//			.paths( PathSelectors.regex( customersEP_URL + "|" + serverEP_URL ) )
+////			.paths( PathSelectors.regex( customersEP_URL + "|" + serverEP_URL + "|/people.*" ) )
+//			.build()
+////			.directModelSubstitute( LocalDate.class, java.sql.Date.class )
+////			.directModelSubstitute( LocalDateTime.class, java.util.Date.class )
+//			.apiInfo( apiInfo() );
+//	}
 	@Bean
-	public Docket api() {
-		//
-		//app.api.endpoints.customers
-		String customersEP_URL = regexEP_URL( "app.api.endpoints.customers", "/api/v1/customers" );
-		String serverEP_URL = regexEP_URL( "app.api.endpoints.server", "/server" );
-		//
-		return new Docket(
-				// show http://localhost:8080/v2/api-docs in UI for swagger: '2.0' api-doc
-//				DocumentationType.SWAGGER_2
-				//
-				// show http://localhost:8080/v3/api-docs in UI for open api: '3.0.3' api-doc
-				DocumentationType.OAS_30
-			)
-			.select()
-//			.apis( RequestHandlerSelectors.basePackage( basePackage ) )
-			.apis( RequestHandlerSelectors.basePackage( "de.freerider.restapi" ) )
-//			.paths( PathSelectors.any() )
-//			.paths( PathSelectors.regex( "/api/v1/customers.*" ) )
-			.paths( PathSelectors.regex( customersEP_URL + "|" + serverEP_URL ) )
-//			.paths( PathSelectors.regex( customersEP_URL + "|" + serverEP_URL + "|/people.*" ) )
-			.build()
-//			.directModelSubstitute( LocalDate.class, java.sql.Date.class )
-//			.directModelSubstitute( LocalDateTime.class, java.util.Date.class )
-			.apiInfo( apiInfo() );
+	public Docket apiDocket() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any())
+				.build();
 	}
 
 	private ApiInfo apiInfo() {
