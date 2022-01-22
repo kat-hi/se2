@@ -1,0 +1,15 @@
+5.) Setzen Sie das Datenmodell in zwei mit Daten gefüllte Repositories um (Daten: siehe folgende Seite),
+entweder als Mock‐Repository für den „API‐driven“‐Ansatz oder direkt als Spring‐Data‐JPA Repository
+o ReservationsRepository<Reservation, ID> und
+o VehicleRepository<Vehicle, ID>.             [ +1ZP ]
+
+8.) Vervollständigen Sie die Endpunkte für die GET‐Operationen und zeigen Sie die Funktion:
+o /reservations – GET/{rid}                   [ +1ZP ]
+o /vehicles – GET, GET/{vid}                  [ +1ZP ]
+
+11. Fremschlüssel  [ +1ZP ]
+12. Zeigen Sie, dass GET für /reservations und /vehicles mit DB korrekt funktionieren.  [ +1ZP ]
+13. Zeigen Sie, dass DELETE für /reservations/{rid} in der DB korrekt funktioniert.   [ +1ZP ]
+14. Zeigen Sie, dass PUT für /reservations/{rid} prinzipiell funktioniert (Update).   [ +1ZP ]
+15.) Zeigen Sie, dass POST für /reservations/{rid} prinzipiell funktioniert und neue Reservierungs‐
+anfragen prinzipiell gestellt werden können.  [ +1ZP ]

@@ -1,6 +1,7 @@
 1. Was ist eine Transaktion?
 Im Fall einer Datenbanktransaktion sind mehrere logisch zusammengehörige Schritte oder Ausführungen innerhalb der Datenbank gemeint,
 die u.a. den Zustand einer Datenbank verändern kann, aber nicht muss.
+Dabei werden entweder alle oder keine Operationen ausgeführt.
 
 2. Was bedeutet die ACID-Eigenschaft für relationale Datenbanken?
 - ACID ist ein Qualitätsmerkmal und Gütekriterium
@@ -11,9 +12,8 @@ die immer zu konsistenten Daten führt und deren erfolgreicher Transaktionszusta
 3. Was ist ein DB-Schema?
 Beschreibt die Struktur einer Datenbank formal. Relationale Datenbanken bestehen zb aus Tabellen, Feldern, Relationen, Views, Index, Packeten.. etc
 Es stellt also die Objekte die zu einer Datenbank gehören dar.
-
-Eine andere Art Datenbankschema dient dazu, zu beschreiben, welche Daten gespeichert werden können und ob und
-welche Beziehungen es unter verschiedenen Datenobjekten gibt.
+Ein Datenbankschema dient dazu, zu beschreiben, welche Daten (Tabellen/Objekte) gespeichert werden können und ob und
+welche Beziehungen es unter verschiedenen Tabellen gibt.
 
 4. Nennen Sie je 3 Namen von relationalen und nicht‐relationalen DB Systemen. Nennen Sie die
    primären Datenformate für die genannten nicht‐relationalen DB Systeme
@@ -38,7 +38,7 @@ CREATE TABLE CUSTOMER (
 );
 
 7. Geben Sie ein SQL‐Statement an, um einen neuen Kunden in die DB zu speichern
-INSERT INTO CUSTOMER (ID, NAME, CONTACT, LAST_LOGIN) VALUES (1, "NEUKUNDE", "KONTAKTDATEN", "11.01.22,19.49"
+INSERT INTO CUSTOMER (ID, NAME, CONTACT, LAST_LOGIN) VALUES (1, "NEUKUNDE", "KONTAKTDATEN", "11.01.22,19.49");
 
 8. Geben Sie das SQL‐Statement an, das den Kunden mit ID: 4 in der DB löscht
 DELETE * FROM CUSTOMER WHERE CUSTOMER.ID = 4;
